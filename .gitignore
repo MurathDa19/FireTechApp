@@ -3,6 +3,8 @@ venv/
 
 # Firebase keys
 *.json
+FireTechApp&/FireTech/FireTech/serviceAccountKeys.json
+
 
 # Variables de entorno
 .env
