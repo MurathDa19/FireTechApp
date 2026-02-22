@@ -1,0 +1,17 @@
+# Entorno virtual
+venv/
+
+# Firebase keys
+*.json
+
+# Variables de entorno
+.env
+
+# Archivos de Django que no deben subirse
+__pycache__/
+*.pyc
+db.sqlite3
+
+# Archivos de editor
+*.log
+*.DS_Store
