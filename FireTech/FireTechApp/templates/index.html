@@ -8,10 +8,9 @@
 <body>
     <nav>
         <ul>
-            {% if user.is_superuser %}
-            <li><a href="{% url 'crear_mobile' %}">Registrar celular</a></li>
-            {% endif %}
-            <li><a href="{% url 'listar_mobiles' %}">Ver celulares</a></li>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="{% url 'Crear_mobiles' %}">Registrar celular</a></li>
+            <li><a href="#">Ver celulares</a></li>
         </ul>
     </nav>
     

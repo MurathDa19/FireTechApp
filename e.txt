@@ -1,0 +1,4 @@
+Moncada = Registro y Login Funcion y Template
+Erick = Eliminar y Actualizar Template
+Fredi = CSS
+Lozano = Leer por parte del usuario
