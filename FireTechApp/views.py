@@ -37,7 +37,7 @@ def Login(request):
             user = auth.sign_in_with_email_and_password(email, password)
             request.session['uid'] = user['localId']
             messages.success(request, 'Inicio de sesión exitoso')
-            return redirect('index.html')
+            return redirect('index_user_view.html')
         except Exception as e:
             messages.error(request, f'Error al iniciar sesión: {e}')
 
