@@ -13,6 +13,21 @@ db = initialize_firebase()
 def index(request):
     return render(request, 'index.html')
 
+
+def Registro(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = auth.create_user_with_email_and_password(email, password)
+            messages.success(request, 'Usuario registrado exitosamente')
+            return redirect('login')
+        except Exception as e:
+            messages.error(request, f'Error al registrar el usuario: {e}')
+
+    return render(request, 'registro.html')
+
 @user_passes_test(lambda u: u.is_superuser)
 def Crear_mobile(request):
     """
