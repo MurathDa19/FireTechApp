@@ -28,6 +28,21 @@ def Registro(request):
 
     return render(request, 'registro.html')
 
+def Login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = auth.sign_in_with_email_and_password(email, password)
+            request.session['uid'] = user['localId']
+            messages.success(request, 'Inicio de sesión exitoso')
+            return redirect('index.html')
+        except Exception as e:
+            messages.error(request, f'Error al iniciar sesión: {e}')
+
+    return render(request, 'login.html')
+
 @user_passes_test(lambda u: u.is_superuser)
 def Crear_mobile(request):
     """
