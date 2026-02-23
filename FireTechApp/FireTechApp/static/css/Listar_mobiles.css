@@ -1,0 +1,88 @@
+
+/* Fondo general */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+}
+
+/* titulo */
+h1 {
+    color: white;
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+/* Tabla */
+table {
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Encabezados */
+th {
+    background: #2c5364;
+    color: white;
+    padding: 12px 20px;
+}
+
+/* Celdas */
+td {
+    padding: 12px 20px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+
+/* Links acciones */
+
+a {
+    text-decoration: none;
+    color: white;
+    background: #2c5364;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin: 2px;
+    transition: 0.3s ease;
+}
+
+a:hover {
+    background: #203a43;
+    transform: scale(1.05);
+}
+
+
+/* Responsive para móviles */
+
+@media (max-width: 768px) {
+
+    table {
+        width: 95%;
+        display: block;
+        overflow-x: auto; 
+        white-space: nowrap;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    a {
+        display: inline-block;
+        margin-top: 4px;
+    }
+}

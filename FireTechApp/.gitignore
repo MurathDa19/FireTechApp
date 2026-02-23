@@ -1,0 +1,26 @@
+# Entorno virtual
+venv/
+
+# Firebase keys
+*.json
+<<<<<<< HEAD
+=======
+FireTechApp&/FireTech/FireTech/serviceAccountKeys.json
+
+>>>>>>> aaebbff986bb830e1df2fa1f9eb4b80183537742
+
+# Variables de entorno
+.env
+
+# Archivos de Django que no deben subirse
+__pycache__/
+*.pyc
+db.sqlite3
+
+# Archivos de editor
+*.log
+<<<<<<< HEAD
+*.DS_Store
+=======
+*.DS_Store
+>>>>>>> aaebbff986bb830e1df2fa1f9eb4b80183537742
