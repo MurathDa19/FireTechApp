@@ -6,6 +6,9 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from FireTech.firebase_conex import initialize_firebase
+from firebase_admin import auth
+
+
 
 # Create your views here.
 
