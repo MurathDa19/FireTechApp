@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Listar_mobiles.css' %}">
     <title>Document</title>
 </head>
 <body>
@@ -23,6 +25,7 @@
             <td>{{ mobile.modelo }}</td>
             <td>{{ mobile.marca }}</td>
             <td>{{ mobile.precio }}</td>
+           
             {% if user.is_superuser %}
             <td>
                 <a href="{% url 'actualizar_mobile' mobile.id %}">Actualizar</a>

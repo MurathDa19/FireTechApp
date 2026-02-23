@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <title>FireTech || Lo mejor de celulares </title>
 </head>
 <body>
@@ -12,10 +14,6 @@
             <li><a href="{% url 'crear_mobile' %}">Registrar celular</a></li>
             {% endif %}
             <li><a href="{% url 'listar_mobiles' %}">Ver celulares</a></li>
-            {% if not user.is_authenticated %}
-            <li><a href="login.html">Login</a></li>
-            <li><a href="registro.html">Register</a></li>
-            {% endif %}
         </ul>
     </nav>
     

@@ -1,0 +1,58 @@
+/* Fondo general */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+/* Navbar */
+   
+
+nav {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+}
+
+/* Lista */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+/* Links */
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: 0.3s ease;
+}
+
+/* Hover */
+nav a:hover {
+    background: #2c5364;
+    transform: scale(1.05);
+}
+
+
+/* Responsive móvil */
+
+@media (max-width: 600px) {
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a {
+        display: block;
+        width: 200px;
+        text-align: center;
+    }
+}

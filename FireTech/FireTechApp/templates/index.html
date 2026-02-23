@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>FireTech || Lo mejor de celulares </title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="{% url 'Crear_mobiles' %}">Registrar celular</a></li>
+            <li><a href="{% url 'Listar_mobiles' %}">Ver celulares</a></li>
+        </ul>
+    </nav>
+</body>
+
+</html>
