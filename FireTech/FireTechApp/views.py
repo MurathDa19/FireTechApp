@@ -33,7 +33,7 @@ def Listar_mobiles(request):
             print(mobiles)
     except Exception as e:
         messages.error(request, f"Error al cargar los móviles: {e}")
-    return render(request, 'Listar_mobiles.html', {'mobiles': mobiless})
+    return render(request, 'Mobiles/Listar_mobiles.html', {'mobiles': mobiless})
 def Crear_mobile(request):
     if request.method == 'POST':
         
