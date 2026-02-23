@@ -12,6 +12,10 @@
             <li><a href="{% url 'crear_mobile' %}">Registrar celular</a></li>
             {% endif %}
             <li><a href="{% url 'listar_mobiles' %}">Ver celulares</a></li>
+            {% if not user.is_authenticated %}
+            <li><a href="login.html">Login</a></li>
+            <li><a href="registro.html">Register</a></li>
+            {% endif %}
         </ul>
     </nav>
     
