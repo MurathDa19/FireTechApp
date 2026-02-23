@@ -6,45 +6,12 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from FireTech.firebase_conex import initialize_firebase
-from firebase_admin import auth
-
-
 
 # Create your views here.
 
 db = initialize_firebase()
 def index(request):
     return render(request, 'index.html')
-
-
-def Registro(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        try:
-            user = auth.create_user_with_email_and_password(email, password)
-            messages.success(request, 'Usuario registrado exitosamente')
-            return redirect('login')
-        except Exception as e:
-            messages.error(request, f'Error al registrar el usuario: {e}')
-
-    return render(request, 'registro.html')
-
-def Login(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        try:
-            user = auth.sign_in_with_email_and_password(email, password)
-            request.session['uid'] = user['localId']
-            messages.success(request, 'Inicio de sesión exitoso')
-            return redirect('index_user_view.html')
-        except Exception as e:
-            messages.error(request, f'Error al iniciar sesión: {e}')
-
-    return render(request, 'login.html')
 
 @user_passes_test(lambda u: u.is_superuser)
 def Crear_mobile(request):
