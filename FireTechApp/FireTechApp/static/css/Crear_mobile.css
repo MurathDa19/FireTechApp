@@ -55,7 +55,7 @@ input[type="text"]:focus {
 
 /* Botón */
 input[type="submit"] {
-    display: block;
+    display: block; 
     width: 200px;
     margin: 20px auto 0 auto;  /* Esto lo centra */
     padding: 10px;
@@ -76,12 +76,12 @@ input[type="submit"]:hover {
 @media (max-width: 480px) {
     form {
         width: 90%;
-        padding: 25px;
+        padding: 25px; /
     }
 
     input[type="submit"] {
-        width: 100%;
-        margin: 20px 8px 0 8px;
+        width: 100%; 
+        margin: 20px 8px 0 8px; /* Esto lo hace un poco más estrecho en móviles */
        
     }
 }
