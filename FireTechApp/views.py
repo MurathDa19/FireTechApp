@@ -1,11 +1,12 @@
 from difflib import restore
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from firebase_admin import firestore
+from firebase_admin import firestore, auth
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from FireTech.firebase_conex import initialize_firebase
+
 
 # Create your views here.
 
@@ -28,7 +29,7 @@ def Registro(request):
 
     return render(request, 'registro.html')
 
-def Login(request):
+def Login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
