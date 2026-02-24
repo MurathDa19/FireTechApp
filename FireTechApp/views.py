@@ -11,7 +11,7 @@ from FireTech.firebase_conex import initialize_firebase
 
 db = initialize_firebase()
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index_user_view.html')
 
 
 def Registro(request):
