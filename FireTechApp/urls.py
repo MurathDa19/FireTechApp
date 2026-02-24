@@ -10,6 +10,7 @@ urlpatterns = [
     path('eliminar_mobile/<str:mobil_id>/', views.Eliminar_mobile, name='eliminar_mobile'),
     path('registro/', views.Registro, name='registro'),
     path('login/', views.Login_view, name='login'),
+    path('logout/', views.cerrar_sesion, name='logout'),
 
 
     

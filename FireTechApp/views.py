@@ -138,3 +138,10 @@ def Eliminar_mobile(request, mobil_id):
     except Exception as e:
         messages.error(request, f"|❌| Error al eliminar dispositivo móvil en Firestore: {e}")
     return redirect('listar_mobiles')
+
+
+def cerrar_sesion(request):
+    #Lo primero que toca hacer es limpiar la sesion y luego se redirige
+    request.session.flush() # Limpia toda la sesión, eliminando todas las claves y valores asociados al usuario actual.
+    messages.info(request, "✅ Sesión cerrada exitosamente.")
+    return redirect('login')
