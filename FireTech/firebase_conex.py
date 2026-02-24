@@ -6,22 +6,25 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def initialize_firebase():
-    if not firebase_admin._apps:
-        try:
+    try:
+        if not firebase_admin._apps:
             base_dir = os.path.dirname(os.path.abspath(__file__))
             file_name = os.getenv("KEYS_PATH")
             cert_path = os.path.join(base_dir, file_name)
 
             if not os.path.exists(cert_path):
-                raise FileNotFoundError(f" |❌📋| No se encontró el archivo en la ruta: {cert_path}")
-            
+                raise FileNotFoundError(
+                    f"|❌📋| No se encontró el archivo en la ruta: {cert_path}"
+                )
+
             cred = credentials.Certificate(cert_path)
             firebase_admin.initialize_app(cred)
+            print("|✅| Firebase inicializado correctamente")
 
-            print(" |✅| Firebase inicializado correctamente")
-            db = firestore.client()
-            
-        except Exception as e:
-            print(f" |❌| Error al inicializar Firebase: {e}")
-            return None
-    return db
+        # 🔥 SIEMPRE crear cliente
+        db = firestore.client()
+        return db
+
+    except Exception as e:
+        print(f"|❌| Error al inicializar Firebase: {e}")
+        return None

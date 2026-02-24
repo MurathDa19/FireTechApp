@@ -1,47 +1,116 @@
 from difflib import restore
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from firebase_admin import firestore
-from django.contrib.auth import login, logout, authenticate
+from firebase_admin import firestore, auth
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
+from datetime import datetime
+import os
+import requests
+
 from FireTech.firebase_conex import initialize_firebase
+
 
 # Create your views here.
 
 db = initialize_firebase()
+print("🔥 DB:", db)
+
+
 def index(request):
     return render(request, 'index_user_view.html')
 
 
 def Registro(request):
+    mensaje = None
+
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
+        username = request.POST.get('username')  # ✅ faltaba
 
         try:
-            user = auth.create_user_with_email_and_password(email, password)
-            messages.success(request, 'Usuario registrado exitosamente')
+            print("🚀 Creando usuario...")
+
+            user = auth.create_user(
+                email=email,
+                password=password,
+                display_name=username   # ✅ nombre correcto
+            )
+
+            print("✅ Usuario creado:", user.uid)
+
+            db.collection('perfiles').document(user.uid).set({
+                'email': email,
+                'uid': user.uid,
+                'username': username,
+                'rol': 'aprendiz',
+                'fecha_registro': datetime.now()
+            })
+
+            print("🔥 Documento Firestore creado")
+
+            mensaje = f"Usuario {username} registrado exitosamente"
             return redirect('login')
+
         except Exception as e:
+            print("❌ ERROR REAL:", e)
             messages.error(request, f'Error al registrar el usuario: {e}')
 
-    return render(request, 'registro.html')
+    return render(request, 'registro.html', {'mensaje': mensaje})
 
-def Login(request):
+def Login_view(request):
+
+    if 'uid' in request.session:
+        return redirect('listar_mobiles')
+
     if request.method == 'POST':
+
         email = request.POST.get('email')
         password = request.POST.get('password')
+        api_key = os.getenv('API_KEY')
+
+        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={api_key}"
+
+        payload = {
+            "email": email,
+            "password": password,
+            "returnSecureToken": True
+        }
 
         try:
-            user = auth.sign_in_with_email_and_password(email, password)
-            request.session['uid'] = user['localId']
-            messages.success(request, 'Inicio de sesión exitoso')
-            return redirect('index.html')
-        except Exception as e:
-            messages.error(request, f'Error al iniciar sesión: {e}')
+            response = requests.post(url, json=payload)
+            data = response.json()
+            print("STATUS:", response.status_code)
+            print("DATA:", data)
+            print("API KEY:", api_key)
+            print("API KEY SETTINGS:", os.getenv("FIREBASE_API_KEY"))
 
+            
+            if response.status_code == 200:
+                request.session['uid']= data ['localId']
+                request.session['email']= data ['email']
+                request.session['idToken']= data ['idToken']
+                messages.success(request,  f"Inicio de sesión exitoso para {email}")
+                return redirect('listar_mobile')
+
+            else:
+                error_message = data.get ('error', {}).get('message', 'UNKNOWN_ERROR')
+
+                errores_comunes= {
+                    'INVALID_LOGIN_CREDENTIALS': 'La contraseña es incorrecta o el correo no es válido.',
+                    'EMAIL_NOT_FOUND': 'Este correo no está registrado en el sistema.',
+                    'USER_DISABLED': 'Esta cuenta ha sido inhabilitada por el administrador.',
+                    'TOO_MANY_ATTEMPTS_TRY_LATER': 'Demasiados intentos fallidos. Espere unos minutos.'
+                }
+                mensaje_usuario = errores_comunes.get(error_message, 'Error desconocido. Inténtalo de nuevo.')
+                messages.error(request, mensaje_usuario)
+        except requests.exceptions.RequestException as e:
+            messages.error(request,"Error de conexión: {e}") 
+        except Exception as e:
+            messages.error(request, f"Error inesperado: {str(e)}")
     return render(request, 'login.html')
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def Crear_mobile(request):
@@ -137,3 +206,10 @@ def Eliminar_mobile(request, mobil_id):
     except Exception as e:
         messages.error(request, f"|❌| Error al eliminar dispositivo móvil en Firestore: {e}")
     return redirect('listar_mobiles')
+
+
+def cerrar_sesion(request):
+    #Lo primero que toca hacer es limpiar la sesion y luego se redirige
+    request.session.flush() # Limpia toda la sesión, eliminando todas las claves y valores asociados al usuario actual.
+    messages.info(request, "✅ Sesión cerrada exitosamente.")
+    return redirect('login')
