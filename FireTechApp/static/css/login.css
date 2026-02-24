@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+h1{
+    text-align: center;
+    color:aquamarine
+}
+.bol_yael{
+    display: flex;
+    justify-self: center;
+}
+.username{
+    justify-content: center;
+}
